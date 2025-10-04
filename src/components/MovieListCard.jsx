@@ -47,12 +47,12 @@ const MovieListCard = ({ movie, delay = 0 }) => {
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.4, delay }}
       whileHover={{ x: 5, transition: { duration: 0.2 } }}
-      className="group relative cursor-pointer bg-gradient-to-r from-gray-800 to-gray-900 rounded-xl overflow-hidden hover:shadow-2xl transition-all"
+      className="group relative cursor-pointer bg-gradient-to-r from-gray-800 to-gray-900 rounded-xl overflow-hidden hover:shadow-2xl transition-all w-full"
       onClick={handleCardClick}
     >
-      <div className="flex gap-4 p-4">
+      <div className="flex gap-2 md:gap-4 p-3 md:p-4">
         {/* Poster */}
-        <div className="relative flex-shrink-0 w-32 h-48 overflow-hidden rounded-lg">
+        <div className="relative flex-shrink-0 w-20 h-28 sm:w-24 sm:h-36 md:w-32 md:h-48 overflow-hidden rounded-lg">
           <img
             src={getImageUrl(movie.poster_path)}
             alt={movie.title}
@@ -63,10 +63,10 @@ const MovieListCard = ({ movie, delay = 0 }) => {
             }}
           />
           {/* Rating badge */}
-          <div className="absolute top-2 right-2 backdrop-blur-md bg-black/60 px-2 py-1 rounded-full border border-white/20">
-            <div className="flex items-center space-x-1">
-              <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-              <span className="text-xs text-white font-bold">
+          <div className="absolute top-1 right-1 md:top-2 md:right-2 backdrop-blur-md bg-black/60 px-1.5 py-0.5 md:px-2 md:py-1 rounded-full border border-white/20">
+            <div className="flex items-center space-x-0.5 md:space-x-1">
+              <Star className="w-2.5 h-2.5 md:w-3 md:h-3 fill-yellow-400 text-yellow-400" />
+              <span className="text-[10px] md:text-xs text-white font-bold">
                 {movie.vote_average?.toFixed(1)}
               </span>
             </div>
@@ -76,40 +76,40 @@ const MovieListCard = ({ movie, delay = 0 }) => {
         {/* Content */}
         <div className="flex-1 flex flex-col justify-between min-w-0">
           <div>
-            <h3 className="text-xl font-bold text-white mb-2 line-clamp-1">
+            <h3 className="text-sm sm:text-base md:text-xl font-bold text-white mb-1 md:mb-2 line-clamp-2">
               {movie.title}
             </h3>
             
-            <div className="flex items-center space-x-3 mb-3">
+            <div className="flex items-center space-x-2 md:space-x-3 mb-2 md:mb-3">
               {movie.release_date && (
-                <div className="flex items-center space-x-1 text-gray-400">
-                  <Calendar className="w-4 h-4" />
-                  <span className="text-sm">
+                <div className="flex items-center space-x-0.5 md:space-x-1 text-gray-400">
+                  <Calendar className="w-3 h-3 md:w-4 md:h-4" />
+                  <span className="text-xs md:text-sm">
                     {new Date(movie.release_date).getFullYear()}
                   </span>
                 </div>
               )}
-              <div className="flex items-center space-x-1">
-                <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                <span className="text-sm text-white font-semibold">
+              <div className="flex items-center space-x-0.5 md:space-x-1">
+                <Star className="w-3 h-3 md:w-4 md:h-4 fill-yellow-400 text-yellow-400" />
+                <span className="text-xs md:text-sm text-white font-semibold">
                   {movie.vote_average?.toFixed(1)}
                 </span>
-                <span className="text-sm text-gray-400">/ 10</span>
+                <span className="text-xs md:text-sm text-gray-400">/ 10</span>
               </div>
             </div>
 
-            <p className="text-gray-400 text-sm line-clamp-2 leading-relaxed">
+            <p className="hidden sm:block text-gray-400 text-xs md:text-sm line-clamp-2 leading-relaxed">
               {movie.overview || 'No description available.'}
             </p>
           </div>
 
           {/* Actions */}
-          <div className="flex items-center space-x-2 mt-4">
+          <div className="flex items-center space-x-1 md:space-x-2 mt-2 md:mt-4">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleWatchlistClick}
-              className={`flex items-center space-x-1 px-4 py-2 rounded-lg font-medium text-sm transition-colors ${
+              className={`flex items-center space-x-1 px-2 py-1 md:px-4 md:py-2 rounded-lg font-medium text-xs md:text-sm transition-colors ${
                 inWatchlist
                   ? 'bg-green-600 text-white'
                   : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
@@ -117,13 +117,13 @@ const MovieListCard = ({ movie, delay = 0 }) => {
             >
               {inWatchlist ? (
                 <>
-                  <Check className="w-4 h-4" />
-                  <span>In Watchlist</span>
+                  <Check className="w-3 h-3 md:w-4 md:h-4" />
+                  <span className="hidden sm:inline">In Watchlist</span>
                 </>
               ) : (
                 <>
-                  <Plus className="w-4 h-4" />
-                  <span>Watchlist</span>
+                  <Plus className="w-3 h-3 md:w-4 md:h-4" />
+                  <span className="hidden sm:inline">Watchlist</span>
                 </>
               )}
             </motion.button>
@@ -132,14 +132,14 @@ const MovieListCard = ({ movie, delay = 0 }) => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleFavoriteClick}
-              className={`flex items-center space-x-1 px-4 py-2 rounded-lg font-medium text-sm transition-colors ${
+              className={`flex items-center space-x-1 px-2 py-1 md:px-4 md:py-2 rounded-lg font-medium text-xs md:text-sm transition-colors ${
                 inFavorites
                   ? 'bg-red-600 text-white'
                   : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
               }`}
             >
-              <Heart className={`w-4 h-4 ${inFavorites ? 'fill-current' : ''}`} />
-              <span>{inFavorites ? 'Favorited' : 'Favorite'}</span>
+              <Heart className={`w-3 h-3 md:w-4 md:h-4 ${inFavorites ? 'fill-current' : ''}`} />
+              <span className="hidden sm:inline">{inFavorites ? 'Favorited' : 'Favorite'}</span>
             </motion.button>
           </div>
         </div>

@@ -15,8 +15,8 @@ const Favorites = () => {
         className="mb-8"
       >
         <div className="flex items-center space-x-3 mb-2">
-          <Heart className="w-8 h-8 text-red-600 fill-current" />
-          <h1 className="text-4xl font-bold text-white">My Favorites</h1>
+          <Heart className="w-6 h-6 md:w-8 md:h-8 text-red-600 fill-current" />
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">My Favorites</h1>
         </div>
         <p className="text-gray-400">
           {favorites.length === 0
@@ -48,7 +48,7 @@ const Favorites = () => {
           </motion.a>
         </motion.div>
       ) : (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-6">
           {favorites.map((movie, index) => (
             <MovieCard key={movie.id} movie={movie} delay={index * 0.05} />
           ))}

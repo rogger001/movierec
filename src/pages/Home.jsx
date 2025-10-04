@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { TrendingUp, Star, Sparkles, Play, ChevronLeft, ChevronRight, Info, Filter } from 'lucide-react';
 import MovieCard from '../components/MovieCard';
+import MovieListCard from '../components/MovieListCard';
 import GenreFilter from '../components/GenreFilter';
 import ViewToggle from '../components/ViewToggle';
 import SortDropdown from '../components/SortDropdown';
@@ -130,7 +131,7 @@ const Home = () => {
           {[1, 2, 3].map((section) => (
             <section key={section}>
               <div className="h-8 w-48 bg-gray-800 rounded-lg mb-6 animate-pulse" />
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-6">
                 {[...Array(10)].map((_, i) => (
                   <MovieCardSkeleton key={i} />
                 ))}
@@ -195,7 +196,7 @@ const Home = () => {
                   <span className="text-sm font-bold">FEATURED</span>
                 </motion.div>
 
-                <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-6 leading-tight drop-shadow-2xl">
+                <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-white mb-4 md:mb-6 leading-tight drop-shadow-2xl">
                   {currentHeroMovie.title}
                 </h1>
                 
@@ -348,10 +349,14 @@ const Home = () => {
               </div>
             </div>
             <div className={viewMode === 'grid' 
-              ? 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6' 
+              ? 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-6' 
               : 'flex flex-col space-y-4'}>
               {sortedRecommendedMovies.slice(0, 10).map((movie, index) => (
-                <MovieCard key={movie.id} movie={movie} delay={index * 0.05} />
+                viewMode === 'grid' ? (
+                  <MovieCard key={movie.id} movie={movie} delay={index * 0.05} />
+                ) : (
+                  <MovieListCard key={movie.id} movie={movie} delay={index * 0.05} />
+                )
               ))}
             </div>
           </motion.section>
@@ -378,10 +383,14 @@ const Home = () => {
           </div>
           {sortedTrendingMovies.length > 0 ? (
             <div className={viewMode === 'grid' 
-              ? 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6' 
+              ? 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-6' 
               : 'flex flex-col space-y-4'}>
               {sortedTrendingMovies.map((movie, index) => (
-                <MovieCard key={movie.id} movie={movie} delay={index * 0.05} />
+                viewMode === 'grid' ? (
+                  <MovieCard key={movie.id} movie={movie} delay={index * 0.05} />
+                ) : (
+                  <MovieListCard key={movie.id} movie={movie} delay={index * 0.05} />
+                )
               ))}
             </div>
           ) : (
@@ -412,10 +421,14 @@ const Home = () => {
           </div>
           {sortedTopRatedMovies.length > 0 ? (
             <div className={viewMode === 'grid' 
-              ? 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6' 
+              ? 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-6' 
               : 'flex flex-col space-y-4'}>
               {sortedTopRatedMovies.map((movie, index) => (
-                <MovieCard key={movie.id} movie={movie} delay={index * 0.05} />
+                viewMode === 'grid' ? (
+                  <MovieCard key={movie.id} movie={movie} delay={index * 0.05} />
+                ) : (
+                  <MovieListCard key={movie.id} movie={movie} delay={index * 0.05} />
+                )
               ))}
             </div>
           ) : (

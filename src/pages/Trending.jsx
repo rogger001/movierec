@@ -43,17 +43,17 @@ const Trending = () => {
         animate={{ opacity: 1, y: 0 }}
         className="mb-8"
       >
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
           <div className="flex items-center space-x-3">
-            <TrendingUp className="w-8 h-8 text-red-600" />
-            <h1 className="text-4xl font-bold text-white">Trending Movies</h1>
+            <TrendingUp className="w-6 h-6 md:w-8 md:h-8 text-red-600" />
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">Trending Movies</h1>
           </div>
 
           {/* Time Window Selector */}
           <div className="flex space-x-2 bg-gray-800 rounded-lg p-1">
             <button
               onClick={() => setTimeWindow('day')}
-              className={`px-4 py-2 rounded-md font-medium transition-colors ${
+              className={`px-3 py-2 md:px-4 md:py-2 rounded-md font-medium text-sm md:text-base transition-colors ${
                 timeWindow === 'day'
                   ? 'bg-red-600 text-white'
                   : 'text-gray-400 hover:text-white'
@@ -63,7 +63,7 @@ const Trending = () => {
             </button>
             <button
               onClick={() => setTimeWindow('week')}
-              className={`px-4 py-2 rounded-md font-medium transition-colors ${
+              className={`px-3 py-2 md:px-4 md:py-2 rounded-md font-medium text-sm md:text-base transition-colors ${
                 timeWindow === 'week'
                   ? 'bg-red-600 text-white'
                   : 'text-gray-400 hover:text-white'
@@ -78,7 +78,7 @@ const Trending = () => {
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-6">
         {movies.map((movie, index) => (
           <MovieCard key={movie.id} movie={movie} delay={index * 0.05} />
         ))}
