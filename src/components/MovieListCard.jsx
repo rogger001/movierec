@@ -60,6 +60,8 @@ const MovieListCard = ({ movie, delay = 0 }) => {
               alt={movie.title}
               className="w-full h-full object-cover"
               loading="lazy"
+              crossOrigin="anonymous"
+              referrerPolicy="no-referrer"
               onError={() => setImageError(true)}
             />
           ) : (

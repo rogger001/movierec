@@ -76,10 +76,12 @@ const Home = () => {
     }
   }, [watchHistory, ratings, popularMovies]);
 
-  const fetchMovies = async () => {
+  const fetchMovies = async (retryCount = 0) => {
     try {
       setLoading(true);
-      console.log('🎬 Fetching movies...');
+      const isMobile = window.innerWidth < 768;
+      console.log('🎬 Fetching movies...', { isMobile, retryCount });
+      
       const [trending, popular, topRated, genreList] = await Promise.all([
         tmdbService.getTrending('week'),
         tmdbService.getPopular(1),
@@ -101,6 +103,13 @@ const Home = () => {
     } catch (error) {
       console.error('❌ Error fetching movies:', error);
       console.error('Error details:', error.response?.data || error.message);
+      
+      // Retry once on mobile if it fails
+      if (retryCount < 1 && window.innerWidth < 768) {
+        console.log('🔄 Retrying on mobile...');
+        setTimeout(() => fetchMovies(retryCount + 1), 2000);
+        return;
+      }
     } finally {
       setLoading(false);
     }

@@ -103,13 +103,19 @@ export const tmdbService = {
 
 // Image URL helpers
 export const getImageUrl = (path, size = 'w500') => {
-  if (!path) return '/placeholder-movie.png';
-  return `${IMAGE_BASE_URL}/${size}${path}`;
+  if (!path) return null;
+  // Use smaller size for mobile performance
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const imageSize = isMobile ? 'w342' : size;
+  return `${IMAGE_BASE_URL}/${imageSize}${path}`;
 };
 
 export const getBackdropUrl = (path, size = 'original') => {
-  if (!path) return '/placeholder-backdrop.png';
-  return `${IMAGE_BASE_URL}/${size}${path}`;
+  if (!path) return null;
+  // Use smaller backdrop for mobile
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const backdropSize = isMobile ? 'w780' : size;
+  return `${IMAGE_BASE_URL}/${backdropSize}${path}`;
 };
 
 export default tmdbService;

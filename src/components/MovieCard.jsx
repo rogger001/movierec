@@ -62,6 +62,8 @@ const MovieCard = ({ movie, delay = 0 }) => {
               whileHover={{ scale: 1.1 }}
               transition={{ duration: 0.5 }}
               loading="lazy"
+              crossOrigin="anonymous"
+              referrerPolicy="no-referrer"
               onError={() => setImageError(true)}
             />
           ) : (
