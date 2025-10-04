@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Star, Heart, Plus, Check } from 'lucide-react';
+import { Star, Heart, Plus, Check, Film } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useMovieContext } from '../contexts/MovieContext';
 import { getImageUrl } from '../services/tmdbApi';
 
 const MovieCard = ({ movie, delay = 0 }) => {
   const navigate = useNavigate();
+  const [imageError, setImageError] = useState(false);
   const {
     isInWatchlist,
     isInFavorites,
@@ -52,18 +53,23 @@ const MovieCard = ({ movie, delay = 0 }) => {
     >
       <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-gray-800 to-gray-900 shadow-2xl ring-1 ring-white/10 hover:ring-red-500/50 transition-all duration-300">
         {/* Movie Poster */}
-        <div className="aspect-[2/3] overflow-hidden relative">
-          <motion.img
-            src={getImageUrl(movie.poster_path)}
-            alt={movie.title}
-            className="h-full w-full object-cover"
-            whileHover={{ scale: 1.1 }}
-            transition={{ duration: 0.5 }}
-            loading="lazy"
-            onError={(e) => {
-              e.target.src = 'https://via.placeholder.com/500x750?text=No+Image';
-            }}
-          />
+        <div className="aspect-[2/3] overflow-hidden relative bg-gray-800">
+          {!imageError && movie.poster_path ? (
+            <motion.img
+              src={getImageUrl(movie.poster_path)}
+              alt={movie.title}
+              className="h-full w-full object-cover"
+              whileHover={{ scale: 1.1 }}
+              transition={{ duration: 0.5 }}
+              loading="lazy"
+              onError={() => setImageError(true)}
+            />
+          ) : (
+            <div className="h-full w-full flex flex-col items-center justify-center bg-gradient-to-br from-gray-700 to-gray-900">
+              <Film className="w-12 h-12 md:w-16 md:h-16 text-gray-600 mb-2" />
+              <span className="text-xs text-gray-500 text-center px-2">{movie.title}</span>
+            </div>
+          )}
           {/* Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </div>

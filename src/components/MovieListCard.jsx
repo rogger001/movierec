@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Star, Heart, Plus, Check, Calendar } from 'lucide-react';
+import { Star, Heart, Plus, Check, Calendar, Film } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useMovieContext } from '../contexts/MovieContext';
 import { getImageUrl } from '../services/tmdbApi';
 
 const MovieListCard = ({ movie, delay = 0 }) => {
   const navigate = useNavigate();
+  const [imageError, setImageError] = useState(false);
   const {
     isInWatchlist,
     isInFavorites,
@@ -52,16 +53,20 @@ const MovieListCard = ({ movie, delay = 0 }) => {
     >
       <div className="flex gap-2 md:gap-4 p-3 md:p-4">
         {/* Poster */}
-        <div className="relative flex-shrink-0 w-20 h-28 sm:w-24 sm:h-36 md:w-32 md:h-48 overflow-hidden rounded-lg">
-          <img
-            src={getImageUrl(movie.poster_path)}
-            alt={movie.title}
-            className="w-full h-full object-cover"
-            loading="lazy"
-            onError={(e) => {
-              e.target.src = 'https://via.placeholder.com/500x750?text=No+Image';
-            }}
-          />
+        <div className="relative flex-shrink-0 w-20 h-28 sm:w-24 sm:h-36 md:w-32 md:h-48 overflow-hidden rounded-lg bg-gray-800">
+          {!imageError && movie.poster_path ? (
+            <img
+              src={getImageUrl(movie.poster_path)}
+              alt={movie.title}
+              className="w-full h-full object-cover"
+              loading="lazy"
+              onError={() => setImageError(true)}
+            />
+          ) : (
+            <div className="h-full w-full flex items-center justify-center bg-gradient-to-br from-gray-700 to-gray-900">
+              <Film className="w-8 h-8 md:w-12 md:h-12 text-gray-600" />
+            </div>
+          )}
           {/* Rating badge */}
           <div className="absolute top-1 right-1 md:top-2 md:right-2 backdrop-blur-md bg-black/60 px-1.5 py-0.5 md:px-2 md:py-1 rounded-full border border-white/20">
             <div className="flex items-center space-x-0.5 md:space-x-1">

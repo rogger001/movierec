@@ -79,6 +79,7 @@ const Home = () => {
   const fetchMovies = async () => {
     try {
       setLoading(true);
+      console.log('🎬 Fetching movies...');
       const [trending, popular, topRated, genreList] = await Promise.all([
         tmdbService.getTrending('week'),
         tmdbService.getPopular(1),
@@ -86,12 +87,20 @@ const Home = () => {
         tmdbService.getGenres(),
       ]);
 
+      console.log('✅ Movies fetched:', {
+        trending: trending.data.results.length,
+        popular: popular.data.results.length,
+        topRated: topRated.data.results.length,
+        genres: genreList.data.genres.length
+      });
+
       setTrendingMovies(trending.data.results.slice(0, 10));
       setPopularMovies(popular.data.results);
       setTopRatedMovies(topRated.data.results.slice(0, 10));
       setGenres(genreList.data.genres);
     } catch (error) {
-      console.error('Error fetching movies:', error);
+      console.error('❌ Error fetching movies:', error);
+      console.error('Error details:', error.response?.data || error.message);
     } finally {
       setLoading(false);
     }
