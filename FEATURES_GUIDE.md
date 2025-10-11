@@ -9,7 +9,7 @@
 - **Release year** and genres
 - **Overview text** (3 lines max)
 - **"View Details"** button (red, rounded)
-- **Gradient overlays** for readability
+- **Gradient overlays** for readabilities
 
 ### Movie Sections
 1. **Recommended for You** (personalized)
